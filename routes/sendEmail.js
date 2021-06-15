@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const User = require("../models/user");
 require('dotenv').config();
 
-async function sendEmail(req){
+async function sendEmail(email,code){
     const transporter=nodemailer.createTransport({
         service:'gmail',
         auth:{
@@ -18,16 +18,16 @@ async function sendEmail(req){
 
     const mailinfo={
         from:`${process.env.EMAIL_ID}`,
-        to:`${req.body.email}`,
+        to:`${email}`,
         subject: "OTP for email-verification", // Subject line
-        text:`${req.body.code}`, // plain text body
+        text:`${code}`, // plain text body
        // html: "<b>Hello world?</b>", // html body    
     };
     return await transporter.sendMail(mailinfo);
 }
 
 
-router.post('',async(req,res)=>{
+router.post('/email',async(req,res)=>{
     let user1=await User.findOne({email:req.body.email}).exec();
 
     if(user1)
@@ -49,9 +49,12 @@ router.post('',async(req,res)=>{
     }
     else
     {
+        const email=(req.body.email).split('@')[1];
+        
         try{
-            await sendEmail(req);
-            res.json("Email is sent");
+            code=Math.floor(100000 + Math.random() * 900000);
+            await sendEmail(req.body.email,code);
+            res.json(code);
         }
         catch(err){
             res.status(400).json({

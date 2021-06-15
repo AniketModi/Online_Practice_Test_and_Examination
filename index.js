@@ -18,7 +18,6 @@ const profile = require('./routes/profile');
 require('dotenv').config();
 
 app.use(cors());
-//app.use(express.bodyParser({limit: '50mb'}))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //app.use(upload.array()); 
