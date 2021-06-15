@@ -5,12 +5,13 @@ const verifyToken = require("./auth/verifytoken.js");
 const bodyParser = require("body-parser");
 const app=express();
 const port = process.env.PORT || 4000
-
+const cors=require("cors");
 const sendEmail=require('./routes/sendEmail');
 const SignIn_SignUp=require('./routes/SignIn_SignUp');
 
 require('dotenv').config();
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
