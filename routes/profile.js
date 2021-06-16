@@ -7,7 +7,7 @@ const router = express.Router();
 
 const getProfile = async(req,res)=>{
     try {
-        const email_id = req.body.email;
+        const email_id = req.params.email;
         const data = await User.findOne({email:email_id});
         console.log(data);
         res.send(data);
@@ -29,6 +29,7 @@ const postProfile = async(req,res)=>{
             result.Gender=req.body.Gender,
             result.contact=req.body.contact,
             result.LinkedinProfile=req.body.LinkedinProfile,
+            result.About=req.body.About,
             result.save();
             console.log(result);
             res.send(result);
@@ -44,8 +45,9 @@ const postProfile = async(req,res)=>{
 }
 
 
-router.route('')
-      .get(getProfile)     
+router.route('/:email')
+      .get(getProfile) 
+router.route('')    
       .put(postProfile)
 
 module.exports = router;
