@@ -28,15 +28,21 @@ const userSchema= new Schema({
     },
     Gender:{
         type:String,
+        default:""
     },
     contact:{
-        type:Number,
+        type:String,
+        default:"",
+
     },
     LinkedinProfile:{
         type:String,
+        default:""
+
     },
     About:{
         type:String,
+        default:""
     }
  })
 

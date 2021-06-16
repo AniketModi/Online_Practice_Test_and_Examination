@@ -1,7 +1,15 @@
 const mongoose = require('mongoose');
 
 const InfoSchema = new mongoose.Schema({
+    Title:{
+        type:String,
+        required:true
+    },
     Type:{
+        type:String,
+        required:true
+    },
+    Mode:{
         type:String,
         required:true
     },
