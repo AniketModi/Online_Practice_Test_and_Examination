@@ -19,7 +19,7 @@ const get_create_test = async(req,res)=>{
 const post_create_test = async(req,res)=>{
     try {
         //console.log(req.body);
-        const [college_name,course_name,prof_name,type,start_date,end_date,marks] =   req.body;
+        const [title,college_name,course_name,prof_name,type,start_date,end_date,marks,mode] =   req.body;
         //console.log(college_name+" "+course_name+" "+prof_name+" "+type+" "+start_date+" "+end_date+" "+marks);
         var obj={
             Type:type,
@@ -29,6 +29,8 @@ const post_create_test = async(req,res)=>{
             Start_date:start_date,
             End_date:end_date,
             Marks:marks,
+            Title:title,
+            Mode:mode,
             Que_pdf:null,
             Student_list:[]
         }
@@ -49,11 +51,11 @@ const post_create_test_paper = async(req,res)=>{
         console.log(req.params);
         const answer = await Info.findOne({_id:req.params.id});
        // console.log(path.join(__dirname + '/uploads/' + 'questions.pdf');
-        const data= fs.readFileSync(path.join(path.resolve("./") +'\\uploads' + '\\questions.pdf'));
-        console.log(data);
-        answer.Que_pdf = Binary(data);
-        answer.save();
-        console.log(answer.Que_pdf);
+        //const data= fs.readFileSync(path.join(path.resolve("./") +'\\uploads' + '\\questions.pdf'));
+        //  console.log(data);
+        // answer.Que_pdf = Binary(data);
+        // answer.save();
+        // console.log(answer.Que_pdf);
         res.send("hello");
         res.status(200);
     } catch (error) {
@@ -63,7 +65,15 @@ const post_create_test_paper = async(req,res)=>{
 
 const post_create_test_list = async(req,res)=>{
     try {
-        res.send("hi");
+        console.log(req.params);
+        const answer = await Info.findOne({_id:req.params.id});
+       // console.log(path.join(__dirname + '/uploads/' + 'questions.pdf');
+        //const data= fs.readFileSync(path.join(path.resolve("./") +'\\uploads' + '\\questions.pdf'));
+        //console.log(data);
+        //answer.Que_pdf = Binary(data);
+        // answer.save();
+        // console.log(answer.Que_pdf);
+        res.send("hello");
         res.status(200);
     } catch (error) {
         console.log(error);
@@ -75,7 +85,7 @@ var storage = multer.diskStorage({
         cb(null, './uploads')
       },       
       filename: function (req, file, cb) {
-        cb(null,'questions.pdf')
+        cb(null,`${req.params.id}_question.pdf`)
       }
              
 })
@@ -87,7 +97,7 @@ var storage2 = multer.diskStorage({
         cb(null, './uploads')
       },       
       filename: function (req, file, cb) {
-        cb(null,'students.csv')
+        cb(null,`${req.params.id}_list.csv`)
       }
              
 })
@@ -104,7 +114,7 @@ router.route('')
 router.route('/paper/:id')
       .post(upload.single('file'),post_create_test_paper)
 
-router.route('/list')
+router.route('/list/:id')
       .post(upload2.single('file'),post_create_test_list)
 
 
