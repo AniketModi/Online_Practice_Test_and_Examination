@@ -32,7 +32,8 @@ const InfoSchema = new mongoose.Schema({
         type:Date
     },
     Marks:{
-        type:Number
+        type:Number,
+        default:null
     },
     Que_pdf:{
         data: Buffer,

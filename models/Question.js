@@ -7,31 +7,41 @@ const quizSchema=new mongoose.Schema({
         required:true
     },
     question:{
-        type:string,
+        type:String,
         required:true
     },
     answer:{
-        type:string,
-        required:true
+        type:String,
+        default:null
     },
     option:
     {
-        type:[string]
+        type:[String],
+        required:true
+    },
+    marks:{
+        type:Number,
+        default:null
     }
 })
 
-const decriptiveSchema=new mongoose.Schema({
+const descriptiveSchema=new mongoose.Schema({
     qid:{
         type:Number,
         unique:true,
         required:true
     },
     question:{
-        type:string,
+        type:String,
         required:true
     },
     answer:{
-        type:string,
+        type:String,
+        default:null
+    },
+    marks:{
+        type:Number,
+        default:null
     }
 })
 
@@ -42,6 +52,10 @@ const QuestionSchema = new mongoose.Schema({
         required:true
     },
     Type:{
+        type:String,
+        required:true
+    },
+    Title:{
         type:String,
         required:true
     },
@@ -57,20 +71,24 @@ const QuestionSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    Total_duration:{
-        type:time,
-    },
     Start_date:{
         type:Date,
+        default:null
+    },
+    End_date:{
+        type:Date,
+        default:null
     },
     Instructions:{
         type:[String],
+        default:null
     },
     Marks:{
         type:Number,
+        default:null
     },
-    Quiz:quizSchema,
-    Descriptive:descriptiveSchema
+    Quiz:[quizSchema],
+    Descriptive:[descriptiveSchema]
 }) 
 
 const Question = mongoose.model('questions',QuestionSchema);
