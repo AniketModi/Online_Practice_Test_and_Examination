@@ -14,7 +14,8 @@ const sendEmail=require('./routes/sendEmail');
 const SignIn_SignUp=require('./routes/SignIn_SignUp');
 const create_test = require('./routes/create_test');
 const profile = require('./routes/profile');
-const Admin = require('./routes/admin')
+const Admin = require('./routes/admin');
+const comment=require('./routes/comment');
 
 require('dotenv').config();
 
@@ -38,6 +39,7 @@ app.use('/admin',Admin);
 app.use('/profile',profile);
 app.use('/practice',viewtest);
 app.use('/',SignIn_SignUp);
+app.use('/comment',comment);
 
 app.listen(port,()=>{
     console.log(`Listening to port ${port}`)
