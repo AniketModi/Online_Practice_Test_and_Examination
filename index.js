@@ -9,7 +9,7 @@ const bodyParser = require("body-parser");
 const app=express();
 const port = process.env.PORT || 4000;
 
-
+const viewtest=require('./routes/viewtest');
 const sendEmail=require('./routes/sendEmail');
 const SignIn_SignUp=require('./routes/SignIn_SignUp');
 const create_test = require('./routes/create_test');
@@ -33,10 +33,11 @@ mongoose.connect(process.env.MONGODB_CONNECT,{useNewUrlParser: true, useUnifiedT
 });
 
 app.use('/sendEmail',sendEmail);
-app.use('/',SignIn_SignUp);
 app.use('/create_test',create_test);
-app.use('/profile',profile)
 app.use('/admin',Admin);
+app.use('/profile',profile);
+app.use('/practice',viewtest);
+app.use('/',SignIn_SignUp);
 
 app.listen(port,()=>{
     console.log(`Listening to port ${port}`)
