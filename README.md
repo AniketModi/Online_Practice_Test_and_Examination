@@ -1,0 +1,2 @@
+# Online_Practice_Test_and_Examination
+Online_Practice_Test_and_Examination website includes practice papers for different courses of different Universities, Schools and Institutes. Students and Professors can search the paper by the name of the author or by the title of the paper or by the name of the Institute/University/School. Professor can upload the paper in private or public mode.  Professor can also take the exam/quiz of the students by using these website.  The main purpose of making these project is to provide students practice papers without any charge.
