@@ -14,6 +14,7 @@ const sendEmail=require('./routes/sendEmail');
 const SignIn_SignUp=require('./routes/SignIn_SignUp');
 const create_test = require('./routes/create_test');
 const profile = require('./routes/profile');
+const Admin = require('./routes/admin')
 
 require('dotenv').config();
 
@@ -33,6 +34,7 @@ mongoose.connect(process.env.MONGODB_CONNECT,{useNewUrlParser: true, useUnifiedT
 
 app.use('/sendEmail',sendEmail);
 app.use('/create_test',create_test);
+app.use('/admin',Admin);
 app.use('/profile',profile);
 app.use('/practice',viewtest);
 app.use('/',SignIn_SignUp);

@@ -9,10 +9,6 @@ const InfoSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    Mode:{
-        type:String,
-        required:true
-    },
     Course_name:{
         type:String,
         required:true
@@ -35,13 +31,13 @@ const InfoSchema = new mongoose.Schema({
         type:Number,
         default:null
     },
-    Que_pdf:{
-        data: Buffer,
-        contentType: String
-    },
-    Student_list:{
-        type:[String]
-    }
+    // Que_pdf:{
+    //     data: Buffer,
+    //     contentType: String
+    // },
+    // Student_list:{
+    //     type:[String]
+    // }
 });
 
 const Info = mongoose.model('que_info_admin',InfoSchema) ;
