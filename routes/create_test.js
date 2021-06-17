@@ -19,8 +19,8 @@ const get_create_test = async(req,res)=>{
 const post_create_test = async(req,res)=>{
     try {
         //console.log(req.body);
-        const [title,college_name,course_name,prof_name,type,start_date,end_date,marks,mode] =   req.body;
-        //console.log(college_name+" "+course_name+" "+prof_name+" "+type+" "+start_date+" "+end_date+" "+marks);
+        const [title,college_name,course_name,prof_name,type,start_date,end_date,marks] =   req.body ;
+        console.log(college_name+" "+course_name+" "+prof_name+" "+type+" "+start_date+" "+end_date+" "+marks+" "+title);
         var obj={
             Type:type,
             Course_name:course_name,
@@ -30,7 +30,6 @@ const post_create_test = async(req,res)=>{
             End_date:end_date,
             Marks:marks,
             Title:title,
-            Mode:mode,
             Que_pdf:null,
             Student_list:[]
         }
@@ -50,12 +49,6 @@ const post_create_test_paper = async(req,res)=>{
     try {
         console.log(req.params);
         const answer = await Info.findOne({_id:req.params.id});
-       // console.log(path.join(__dirname + '/uploads/' + 'questions.pdf');
-        //const data= fs.readFileSync(path.join(path.resolve("./") +'\\uploads' + '\\questions.pdf'));
-        //  console.log(data);
-        // answer.Que_pdf = Binary(data);
-        // answer.save();
-        // console.log(answer.Que_pdf);
         res.send("hello");
         res.status(200);
     } catch (error) {
