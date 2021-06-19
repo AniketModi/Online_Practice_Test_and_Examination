@@ -47,7 +47,7 @@ const descriptiveSchema=new mongoose.Schema({
 
 const QuestionSchema = new mongoose.Schema({
     Que_paper_id:{
-        type:Number,
+        type:String,
         unique:true,
         required:true
     },

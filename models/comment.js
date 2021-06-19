@@ -5,12 +5,10 @@ const Schema=mongoose.Schema;
 const commentSchema=new Schema({
     que_paper_id:{
         type:String,
-        required:true,
-        ref:"que_info_admin"
+        required:true
     },
     user_id:{
         type:String,
-        ref:"users",
         required:true
     },
     comment:{

@@ -16,6 +16,7 @@ const create_test = require('./routes/create_test');
 const profile = require('./routes/profile');
 const Admin = require('./routes/admin');
 const comment=require('./routes/comment');
+const home = require('./routes/home');
 
 require('dotenv').config();
 
@@ -40,6 +41,7 @@ app.use('/profile',profile);
 app.use('/practice',viewtest);
 app.use('/',SignIn_SignUp);
 app.use('/comment',comment);
+app.use('/home',home);
 
 app.listen(port,()=>{
     console.log(`Listening to port ${port}`)
