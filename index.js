@@ -16,8 +16,8 @@ const create_test = require('./routes/create_test');
 const profile = require('./routes/profile');
 const Admin = require('./routes/admin');
 const comment=require('./routes/comment');
-const home = require('./routes/home');
 
+const home=require('./routes/home');
 require('dotenv').config();
 
 app.use(cors());
