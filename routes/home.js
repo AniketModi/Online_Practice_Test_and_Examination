@@ -56,7 +56,7 @@ const Practicepaper = async(req,res)=>{
             error:err
         })
     })
-})
+}
 
 
 router.route('/wishlist/:id')
@@ -65,6 +65,7 @@ router.route('/wishlist/:id')
 router.route('/wishlist')
       .post(InsertWishlist)
 
-router.route(/practice')
+router.route('/practice')
        .get(Practicepaper)
-module.exports=router
+
+       module.exports=router
