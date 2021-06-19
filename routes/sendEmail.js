@@ -36,30 +36,32 @@ router.post('/email',async(req,res)=>{
             error:"email id is already exists"
         });
     }
-
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const validEmail = re.test(req.body.email.toLowerCase());
-    
-    if(!validEmail)
-    {
-        //console.log('ee');
-        res.status(400).json({
-            error:"Please enter a valid email id"
-        })
-    }
     else
     {
-        const email=(req.body.email).split('@')[1];
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const validEmail = re.test(req.body.email.toLowerCase());
         
-        try{
-            code=Math.floor(100000 + Math.random() * 900000);
-            await sendEmail(req.body.email,code);
-            res.json(code);
-        }
-        catch(err){
+        if(!validEmail)
+        {
+            //console.log('ee');
             res.status(400).json({
-                error:err
+                error:"Please enter a valid email id"
             })
+        }
+        else
+        {
+            const email=(req.body.email).split('@')[1];
+            
+            try{
+                code=Math.floor(100000 + Math.random() * 900000);
+                await sendEmail(req.body.email,code);
+                res.json(code);
+            }
+            catch(err){
+                res.status(400).json({
+                    error:err
+                })
+            }
         }
     }
 });
