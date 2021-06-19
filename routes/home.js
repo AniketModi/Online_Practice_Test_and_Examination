@@ -16,12 +16,6 @@ const showWishlist = async(req,res)=>{
     })
     console.log(idss);
     const data = await Question.find({Que_paper_id:idss},{Title:1,Course_name:1,College_name:1,Professor_name:1,_id:0})
-    // .then(async(users)=>{
-    //     data.push(users);
-    // }).catch((err)=>{
-    //     console.log(err);
-    //     res.status(404);
-    // })  
     console.log(data);
     res.send(data);
     res.status(200)      
@@ -44,10 +38,34 @@ const InsertWishlist = async(req,res)=>{
      }
 }
 
+
+const Practicepaper = async(req,res)=>{
+    const practices=[];
+
+    await Question.find({Type:"Practice"}).
+    then((papers)=>{
+       // console.log(papers);
+        papers.forEach((paper)=>{
+           // console.log(paper);
+            practices.push({"title":paper.Title,"course":paper.Course_name,"college":paper.College_name,"prof":paper.Professor_name});
+        })
+
+        res.json(practices);
+    }).catch((err)=>{
+        res.status(400).json({
+            error:err
+        })
+    })
+}
+
+
 router.route('/wishlist/:id')
       .get(showWishlist)
 
 router.route('/wishlist')
       .post(InsertWishlist)
 
-module.exports = router;
+router.route('/practice')
+       .get(Practicepaper)
+
+       module.exports=router
