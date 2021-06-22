@@ -15,7 +15,7 @@ const showWishlist = async(req,res)=>{
      })
     })
     console.log(idss);
-    const data = await Question.find({Que_paper_id:idss},{Title:1,Course_name:1,College_name:1,Professor_name:1,_id:0})
+    const data = await Question.find({Que_paper_id:idss},{Title:1,Course_name:1,College_name:1,Professor_name:1,Que_paper_id:1,_id:0})
     console.log(data);
     res.send(data);
     res.status(200)      
