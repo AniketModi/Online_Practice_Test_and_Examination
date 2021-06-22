@@ -15,21 +15,27 @@ const showWishlist = async(req,res)=>{
      })
     })
     console.log(idss);
-    const data = await Question.find({Que_paper_id:idss},{Title:1,Course_name:1,College_name:1,Professor_name:1,_id:0})
+    const data = await Question.find({Que_paper_id:idss},{Title:1,Course_name:1,College_name:1,Professor_name:1,_id:0,Que_paper_id:1})
     console.log(data);
     res.send(data);
     res.status(200)      
 }
 
 const InsertWishlist = async(req,res)=>{
+    const data = await Wishlist.find({email:req.body.email,Que_paper_id:req.body.id})
+    console.log(data);
     const wishlist=new Wishlist({
         email:req.body.email,
         Que_paper_id:req.body.id
     });
  
     try{
+        if(data.length==0){
         await wishlist.save();
         res.send(wishlist);
+        }
+        else
+            res.send("already exist");
      }
      catch(err){
          res.status(400).json({
@@ -38,6 +44,13 @@ const InsertWishlist = async(req,res)=>{
      }
 }
 
+const DeleteWishlist = async(req,res)=>{
+    const id = req.body.id;
+    const email=req.body.email
+    const respose = await Wishlist.deleteOne({email:email,Que_paper_id:id})
+    console.log(respose);
+    res.send("deleted");
+}
 
 const Practicepaper = async(req,res)=>{
     const practices=[];
@@ -64,6 +77,7 @@ router.route('/wishlist/:id')
 
 router.route('/wishlist')
       .post(InsertWishlist)
+      .delete(DeleteWishlist)
 
 router.route('/practice')
        .get(Practicepaper)
