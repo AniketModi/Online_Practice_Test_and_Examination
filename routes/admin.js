@@ -58,6 +58,25 @@ const deletePaper = async(req,res)=>{
     res.status(200);
 }
 
+
+const getPDF = async(req,res)=>{
+        const {id} = req.params;
+        var options = { 
+            root:path.resolve("./")
+        }; 
+        console.log(options);
+        var filename = `${id}_question.pdf`
+        req.header('Content-Transfer-Encoding', 'Binary')
+        req.header("Content-Type", "application/pdf");
+        res.setHeader("Content-disposition",
+                      "attachment; filename=" + filename + "Example.pdf" );
+        res.sendFile(`uploads/${id}_question.pdf`, options
+       );
+    // res.send("hi");
+    res.status(200);
+        console.log("1");
+}
+
 router.route('')
       .post(HandlePassword);
 
@@ -66,5 +85,8 @@ router.route('/main')
     
 router.route('/main/:id')
       .delete(deletePaper)
+
+router.route('/main/pdf/:id')
+     .get(getPDF)
 
 module.exports = router;
