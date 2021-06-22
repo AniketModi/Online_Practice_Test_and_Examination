@@ -15,7 +15,7 @@ const showWishlist = async(req,res)=>{
      })
     })
     console.log(idss);
-    const data = await Question.find({Que_paper_id:idss},{Title:1,Course_name:1,College_name:1,Professor_name:1,_id:0,Que_paper_id:1})
+    const data = await Question.find({Que_paper_id:idss},{Title:1,Course_name:1,College_name:1,Professor_name:1,Que_paper_id:1,_id:0})
     console.log(data);
     res.send(data);
     res.status(200)      
@@ -60,7 +60,7 @@ const Practicepaper = async(req,res)=>{
        // console.log(papers);
         papers.forEach((paper)=>{
            // console.log(paper);
-            practices.push({"title":paper.Title,"course":paper.Course_name,"college":paper.College_name,"prof":paper.Professor_name});
+            practices.push({"id":paper.Que_paper_id,"title":paper.Title,"course":paper.Course_name,"college":paper.College_name,"prof":paper.Professor_name});
         })
 
         res.json(practices);
