@@ -47,7 +47,7 @@ const Practicepaper = async(req,res)=>{
        // console.log(papers);
         papers.forEach((paper)=>{
            // console.log(paper);
-            practices.push({"title":paper.Title,"course":paper.Course_name,"college":paper.College_name,"prof":paper.Professor_name});
+            practices.push({"id":paper.Que_paper_id,"title":paper.Title,"course":paper.Course_name,"college":paper.College_name,"prof":paper.Professor_name});
         })
 
         res.json(practices);
