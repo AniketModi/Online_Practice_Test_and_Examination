@@ -14,13 +14,13 @@ router.post('/SignIn',async(req,res)=>{
 
     if(user)
     {
-        const auth=await bcrypt.compare(req.body.password,user.password);
+        const auth=(user.password==req.body.password) ? 1:0;
         
         console.log(auth);
         if(auth)
         {
             const accessToken=jwt.sign(user.email,process.env.ACCESS_SECRET_KEY);
-            res.json({ accessToken: accessToken });    
+            res.json({ accessToken: accessToken ,role:user.role});    
         }
         else
         {
