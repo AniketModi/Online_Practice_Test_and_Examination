@@ -20,10 +20,11 @@ git pull origin main
 ### 3. Run the following commands in the directory where you cloned the repo:
 ```bash
 npm install
+npm update
 npm run dev
 ```
 
 ### 4. Now go on http://localhost:4000/ in a browser to see the app.
 
-## Server Repo
+## Client Repo
 #### [FrontEnd](https://github.com/AniketModi/Online_Practice_Test_and_Examination_frontend)
