@@ -2,6 +2,10 @@ const express = require("express");
 const Question = require("../models/Question");
 const router = express.Router();
 const Wishlist = require('../models/Wishlist');
+const xlsxFile = require('read-excel-file/node');
+const path = require('path');
+
+
 
 const showWishlist = async(req,res)=>{
     const email = req.params.id;
@@ -82,4 +86,6 @@ router.route('/wishlist')
 router.route('/practice')
        .get(Practicepaper)
 
-       module.exports=router
+
+
+module.exports=router

@@ -3,10 +3,12 @@ const path = require('path');
 const express = require('express');
 const multer = require('multer');
 const router = express.Router();
+const xlsxFile = require('read-excel-file/node');
 
 
 //import models
 var Info = require('../models/que_info_admin');
+var List = require('../models/paper_list')
 
 const get_create_test = async(req,res)=>{
     try {
@@ -47,27 +49,44 @@ const post_create_test = async(req,res)=>{
 
 const post_create_test_paper = async(req,res)=>{
     try {
-        console.log(req.params);
-        const answer = await Info.findOne({_id:req.params.id});
-        res.send("hello");
-        res.status(200);
+        var obj= {
+            Que_paper_id:req.params.id
+        }
+        List.insertMany(obj).then(()=>{
+            res.send("done");
+            res.status(200);
+        }).catch((err)=>{
+            console.log(err);
+            res.status(404);
+        })
+
+      
     } catch (error) {
         console.log(error);
+        res.status(404);
     }
 }
 
 const post_create_test_list = async(req,res)=>{
     try {
-        console.log(req.params);
-        const answer = await Info.findOne({_id:req.params.id});
-       // console.log(path.join(__dirname + '/uploads/' + 'questions.pdf');
-        //const data= fs.readFileSync(path.join(path.resolve("./") +'\\uploads' + '\\questions.pdf'));
-        //console.log(data);
-        //answer.Que_pdf = Binary(data);
-        // answer.save();
-        // console.log(answer.Que_pdf);
-        res.send("hello");
-        res.status(200);
+        const id = req.params.id;
+        var answer=[];
+        xlsxFile(path.join(path.resolve("./") +'\\uploads' + `\\${id}_list.csv`)).
+        then((rows)=>{
+                for(i in rows)
+                    answer.push(i);
+                List.findOne({Que_paper_id:id}).then((e)=>{
+                    e.List = answer;
+                    e.save();
+                    console.log(e);
+                    res.send(e);
+                    res.status(200);
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            }).catch((err)=>{
+                console.log(err);
+            })
     } catch (error) {
         console.log(error);
     }
