@@ -3,8 +3,9 @@ const express = require('express');
 const router=express.Router();
 
 const question=require('../models/Question');
+const verify=require('../auth/verifytoken');
 
-router.get('/view/:id',async(req,res)=>{
+router.get('/view/:id',verify,async(req,res)=>{
    // console.log('reached1');
 
     var paper_id=req.params.id;

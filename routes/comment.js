@@ -5,8 +5,9 @@ const Comment=require('../models/comment');
 const express=require('express');
 
 const router=express.Router();
+const verify=require('../auth/verifytoken');
 
-router.get('/getcomment/:id',async(req,res)=>{
+router.get('/getcomment/:id',verify,async(req,res)=>{
 
     const quepaper_id=req.params.id;
 
@@ -48,11 +49,11 @@ router.get('/getcomment/:id',async(req,res)=>{
     })
 })
 
-router.post('/postcomment',async(req,res)=>{
+router.post('/postcomment',verify,async(req,res)=>{
 
     const commentobj=new Comment({
         que_paper_id:req.body.que_paper_id,
-        user_id:req.body.user_id,
+        user_id:req.user,
         comment:req.body.comment
     })
 
