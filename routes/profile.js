@@ -2,12 +2,13 @@ const express = require('express');
 
 //models
 const User = require('../models/user');
-
+const verify=require('../auth/verifytoken');
 const router = express.Router();
 
 const getProfile = async(req,res)=>{
     try {
-        const email_id = req.params.email;
+      //  const email_id = req.params.email;
+      const email_id=req.user;
         const data = await User.findOne({email:email_id});
         console.log(data);
         res.send(data);
@@ -20,7 +21,7 @@ const getProfile = async(req,res)=>{
 
 const postProfile = async(req,res)=>{
     try {
-        const email_id = req.body.email;
+        const email_id = req.user;
         //console.log(gender,aboutme,name,phone_number,LinkedIN);
         User.findOne({email:email_id})
         .then((result)=>{
@@ -45,9 +46,9 @@ const postProfile = async(req,res)=>{
 }
 
 
-router.route('/:email')
-      .get(getProfile) 
+router.route('')
+      .get(verify,getProfile) 
 router.route('')    
-      .put(postProfile)
+      .put(verify,postProfile)
 
 module.exports = router;

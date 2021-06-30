@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const quizSchema=new mongoose.Schema({
     qid:{
         type:Number,
-        unique:true,
         required:true
     },
     question:{
@@ -28,7 +27,6 @@ const quizSchema=new mongoose.Schema({
 const descriptiveSchema=new mongoose.Schema({
     qid:{
         type:Number,
-        unique:true,
         required:true
     },
     question:{
