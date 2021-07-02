@@ -21,7 +21,7 @@ router.get('/view/:id',verify,async(req,res)=>{
     else
     {
       //  console.log(que);
-        const que_info={"Type":que.Type,"Title":que.Title,"course":que.Course_name,"college":que.College_name,"prof":que.Professor_name};
+        const que_info={"Type":que.Type,"Title":que.Title,"course":que.Course_name,"college":que.College_name,"prof":que.Professor_name,"marks":que.Marks};
 
         const mcq=[];
 
