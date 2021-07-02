@@ -120,14 +120,14 @@ const upload2 = multer({storage:storage2})
 
 
 router.route('')
-      .get(verify,get_create_test)
-      .post(verify,post_create_test)
+      .get(get_create_test)
+      .post(post_create_test)
 
 router.route('/paper/:id')
-      .post(upload.single('file'),verify,post_create_test_paper)
+      .post(upload.single('file'),post_create_test_paper)
 
 router.route('/list/:id')
-      .post(upload2.single('file'),verify,post_create_test_list)
+      .post(upload2.single('file'),post_create_test_list)
 
 
 module.exports = router;
