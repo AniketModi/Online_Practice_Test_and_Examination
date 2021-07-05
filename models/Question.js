@@ -69,6 +69,10 @@ const QuestionSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    Prof_email:{
+        type:String,
+        required:true
+    },
     Start_date:{
         type:Date,
         default:null
