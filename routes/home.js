@@ -77,7 +77,7 @@ try{
    lists.forEach((list)=>{
       // console.log(list.List.length);
 
-       if(list.List.length===0)
+       if(list.List.length===0 || paperidsmap[list.Que_paper_id].Prof_email==req.user)
        {
            practices.push({"id":list.Que_paper_id,"title":paperidsmap[list.Que_paper_id].Title,
            "course":paperidsmap[list.Que_paper_id].Course_name,
