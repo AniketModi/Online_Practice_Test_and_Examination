@@ -140,28 +140,31 @@ const post_create_test_paper = async(req,res)=>{
 }
 
 const post_create_test_list = async(req,res)=>{
-    try {
-        const id = req.params.id;
-        var answer=[];
-        xlsxFile(path.join(path.resolve("./") +'\\uploads' + `\\${id}_list.csv`)).
-        then((rows)=>{
-                for(i in rows)
-                    answer.push(i);
-                List.findOne({Que_paper_id:id}).then((e)=>{
-                    e.List = answer;
-                    e.save();
-                    console.log(e);
-                    res.send(e);
-                    res.status(200);
-                }).catch((err)=>{
-                    console.log(err)
-                })
-            }).catch((err)=>{
-                console.log(err);
-            })
-    } catch (error) {
-        console.log(error);
-    }
+    // try {
+    //     const id = req.params.id;
+    //     var answer=[];
+    //     xlsxFile(path.join(path.resolve("./") +'\\uploads' + `\\${id}_list.csv`)).
+    //     then((rows)=>{
+    //         console.log(rows);
+    //             // // for(i in rows)
+    //             // //     answer.push(i);
+    //             // // console.log(answer);
+    //             // // List.findOne({Que_paper_id:id}).then((e)=>{
+    //             // //     e.List = answer;
+    //             // //     e.save();
+    //             // //     console.log(e);
+    //             // //     res.send(e);
+    //             // //     res.status(200);
+    //             // }).catch((err)=>{
+    //             //     console.log(err)
+    //             // })
+    //         }).catch((err)=>{
+    //             console.log(err);
+    //         })
+    // } catch (error) {
+    //     console.log(error);
+    // }
+    res.send("Ok");
 }
 
 var storage = multer.diskStorage({
