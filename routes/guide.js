@@ -2,6 +2,7 @@ const express =  require("express");
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
+const verify=require('../auth/verifytoken');
 
 
 
@@ -42,9 +43,9 @@ res.status(200);
 
 
 router.route('/xlsx')
-      .get(getPaper)
+      .get(verify,getPaper)
 
 router.route('/csv')
-      .get(getList)
+      .get(verify,getList)
 
 module.exports = router;
