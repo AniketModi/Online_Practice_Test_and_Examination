@@ -5,7 +5,9 @@ const multer = require('multer');
 const router = express.Router();
 const xlsxFile = require('read-excel-file/node');
 const verify=require('../auth/verifytoken');
-
+const xlsx=require("xlsx");
+const Question=require('../models/Question');
+const mongoose=require('mongoose');
 //import models
 var Info = require('../models/que_info_admin');
 var List = require('../models/paper_list')
@@ -45,6 +47,76 @@ const post_create_test = async(req,res)=>{
         console.log(error);
     }
         
+}
+
+const post_create_test_own=async(req,res)=>{
+    var wb=xlsx.readFile(path.join(path.resolve("./") +'\\Template' + `\\Test_temp.xlsx`));
+    var ws=wb.Sheets["Quiz"];
+
+    var ws1=wb.Sheets["Descriptive"];
+
+    var data1=xlsx.utils.sheet_to_json(ws1);
+
+    console.log("Descriptive::");
+    console.log(data1);
+
+
+    var qdata=xlsx.utils.sheet_to_json(ws);
+  //  console.log(qdata);
+
+    const data=[];
+    qdata.forEach((qdata)=>{
+        var option=[qdata.A,qdata.B,qdata.C,qdata.D];
+
+        if(typeof qdata.answer==='undefined' && typeof qdata.marks==='undefined')
+        {
+            data.push({"qid":qdata.qid,"question":qdata.question,"option":option})            
+        }
+        else if(typeof qdata.answer==='undefined')
+        {
+            data.push({"qid":qdata.qid,"question":qdata.question,"marks":qdata.marks,"option":option})
+        }
+        else if(typeof qdata.marks==='undefined')
+        {
+            data.push({"qid":qdata.qid,"question":qdata.question,"answer":qdata.answer,"option":option})
+        }
+        else
+        {
+            data.push({"qid":qdata.qid,"question":qdata.question,"marks":qdata.marks,"answer":qdata.answer,"option":option})
+        }
+    })
+
+    console.log(data);
+
+    await Info.findOne({_id:req.params.id})
+    .then(async(question_info)=>{
+       // console.log(question);
+      // console.log(req.user);
+       const question= new Question({
+        Que_paper_id:req.params.id,
+        Title:question_info.Title,
+        Type:question_info.Type,
+        Course_name:question_info.Course_name,
+        College_name:question_info.College_name,
+        Start_date:question_info.Start_date,
+        End_date:question_info.End_date,
+        Professor_name:question_info.Professor_name,
+        Prof_email:req.user,
+        Marks:question_info.Marks,
+        Quiz:data,
+        Descriptive:data1
+       })
+       await question.save();
+       await Info.findOneAndDelete({_id:req.params.id});
+        //console.log(question);
+        res.send(question);
+    })
+    .catch((err)=>{
+        res.status(400).json({
+            "error":err
+        })
+    })
+
 }
 
 const post_create_test_paper = async(req,res)=>{
@@ -129,5 +201,6 @@ router.route('/paper/:id')
 router.route('/list/:id')
       .post(upload2.single('file'),post_create_test_list)
 
+router.route('/own/:id').post(verify,post_create_test_own);
 
 module.exports = router;

@@ -83,7 +83,7 @@ const QuestionSchema = new mongoose.Schema({
     },
     Instructions:{
         type:[String],
-        default:null
+        default:[]
     },
     Marks:{
         type:Number,
