@@ -29,12 +29,12 @@ const getList = async(req,res)=>{
         root:path.resolve("./")
     }; 
     //console.log(options);
-    var filename = `List_temp.csv`
+    var filename = `List_temp.xlsx`
     req.header('Content-Transfer-Encoding', 'Binary')
-    req.header("Content-Type", "application/csv");
+    req.header("Content-Type", "application/xlsx");
     res.setHeader("Content-disposition",
-                  "attachment; filename=" + filename + "Example.csv" );
-    res.sendFile(`Template/List_temp.csv`, options
+                  "attachment; filename=" + filename + "Example.xlsx" );
+    res.sendFile(`Template/List_temp.xlsx`, options
    );
 // res.send("hi");
 res.status(200);
@@ -42,10 +42,10 @@ res.status(200);
 }
 
 
-router.route('/xlsx')
-      .get(verify,getPaper)
+router.route('/paper')
+      .get(getPaper)
 
-router.route('/csv')
-      .get(verify,getList)
+router.route('/list')
+      .get(getList)
 
 module.exports = router;
