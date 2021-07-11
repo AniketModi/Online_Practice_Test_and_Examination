@@ -30,12 +30,13 @@ const post_create_test = async(req,res)=>{
             Course_name:course_name,
             College_name:college_name,
             Professor_name:prof_name,
+            Prof_email:req.user,
             Start_date:start_date,
             End_date:end_date,
             Marks:marks,
             Title:title,
-            Que_pdf:null,
-            Student_list:[]
+//            Que_pdf:null,
+  //          Student_list:[]
         }
         const answer  = await Info.insertMany(obj);
         const id = answer[0]._id;
@@ -53,14 +54,14 @@ const post_create_test_own=async(req,res)=>{
 
     try{
         const [title,college_name,course_name,prof_name,type,start_date,end_date,marks] =   req.body ;
-        const r="abc@gmail.com"
+      //  const r="abc@gmail.com"
         console.log(college_name+" "+course_name+" "+prof_name+" "+type+" "+start_date+" "+end_date+" "+marks+" "+title);
         var obj={
             Type:type,
             Course_name:course_name,
             College_name:college_name,
             Professor_name:prof_name,
-            Prof_email:r,
+            Prof_email:req.user,
             Start_date:start_date,
             End_date:end_date,
             Marks:marks,
@@ -264,20 +265,20 @@ const upload3 = multer({storage:storage3})
 
 
 router.route('')
-      .get(get_create_test)
-      .post(post_create_test)
+      .get(verify,get_create_test)
+      .post(verify,post_create_test)
 
 router.route('/own')
-      .post(post_create_test_own)
+      .post(verify,post_create_test_own)
 
 router.route('/paper/:id')
-      .post(upload.single('file'),post_create_test_paper)
+      .post(verify,upload.single('file'),post_create_test_paper)
 
 router.route('/paper_xl/:id')
-      .post(upload3.single('file'),post_paper_own)
+      .post(verify,upload3.single('file'),post_paper_own)
 
 router.route('/list/:id')
-      .post(upload2.single('file'),post_create_test_list)
+      .post(verify,upload2.single('file'),post_create_test_list)
 
 
 module.exports = router;
