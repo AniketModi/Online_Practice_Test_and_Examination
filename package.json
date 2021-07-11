@@ -8,6 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AniketModi/Online_Practice_Test_and_Examination.git"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
