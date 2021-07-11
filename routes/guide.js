@@ -43,9 +43,9 @@ res.status(200);
 
 
 router.route('/paper')
-      .get(getPaper)
+      .get(verify,getPaper)
 
 router.route('/list')
-      .get(getList)
+      .get(verify,getList)
 
 module.exports = router;
