@@ -47,7 +47,7 @@ const deletePaper = async(req,res)=>{
         }
       }));
 
-    fs.unlink(path.join(path.resolve("./") +'\\uploads' + `\\${id}_list.csv`), (err => {
+    fs.unlink(path.join(path.resolve("./") +'\\uploads' + `\\${id}_list.xlsx`), (err => {
         if (err) console.log(err);
         else {
             console.log("list deleted");
